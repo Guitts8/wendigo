@@ -5,6 +5,12 @@
 [ext_resource type="PackedScene" path="res://scenes/world/pine_tree.tscn" id="3_tree"]
 [ext_resource type="PackedScene" path="res://scenes/interactables/firewood.tscn" id="4_firewood"]
 [ext_resource type="PackedScene" path="res://scenes/interactables/campfire.tscn" id="5_campfire"]
+[ext_resource type="Script" path="res://scenes/world/day_night_cycle.gd" id="6_day_night"]
+[ext_resource type="PackedScene" path="res://scenes/world/snowfall.tscn" id="7_snowfall"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/item_pickup.tscn" id="8_item_pickup"]
+[ext_resource type="Resource" path="res://data/items/canned_food.tres" id="9_canned"]
+[ext_resource type="Resource" path="res://data/items/raw_meat.tres" id="10_raw_meat"]
+[ext_resource type="Resource" path="res://data/items/battery.tres" id="11_battery"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cold"]
 sky_top_color = Color(0.42, 0.49, 0.58, 1)
@@ -53,6 +59,19 @@ light_color = Color(0.85, 0.9, 1, 1)
 light_energy = 0.8
 shadow_enabled = true
 directional_shadow_max_distance = 80.0
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 20, 0)
+visible = false
+light_color = Color(0.6, 0.7, 1, 1)
+light_energy = 0.06
+sky_mode = 1
+
+[node name="DayNightCycle" type="Node" parent="." node_paths=PackedStringArray("sun", "moon", "world_environment")]
+script = ExtResource("6_day_night")
+sun = NodePath("../Sun")
+moon = NodePath("../Moon")
+world_environment = NodePath("../WorldEnvironment")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_mask = 0
@@ -154,5 +173,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 9)
 [node name="Firewood06" parent="Firewood" instance=ExtResource("4_firewood")]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 7, 0, 16)
 
+[node name="Items" type="Node3D" parent="."]
+
+[node name="CannedFood01" parent="Items" instance=ExtResource("8_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0.05, 1.2)
+item = ExtResource("9_canned")
+
+[node name="CannedFood02" parent="Items" instance=ExtResource("8_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.05, -1.6)
+item = ExtResource("9_canned")
+
+[node name="RawMeat01" parent="Items" instance=ExtResource("8_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 4)
+item = ExtResource("10_raw_meat")
+
+[node name="RawMeat02" parent="Items" instance=ExtResource("8_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 12)
+item = ExtResource("10_raw_meat")
+
+[node name="Battery01" parent="Items" instance=ExtResource("8_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.05, 1.6)
+item = ExtResource("11_battery")
+
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 9)
+
+[node name="Snowfall" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_snowfall")]
+target = NodePath("../Player")
