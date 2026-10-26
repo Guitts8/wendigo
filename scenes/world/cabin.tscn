@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" path="res://scenes/interactables/campfire.tscn" id="1_campfire"]
 [ext_resource type="Script" path="res://scenes/world/warmth_zone.gd" id="2_warmth"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/bed.tscn" id="3_bed"]
+[ext_resource type="PackedScene" path="res://scenes/world/closet.tscn" id="4_closet"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
 albedo_color = Color(0.36, 0.27, 0.2, 1)
@@ -100,3 +102,44 @@ shape = SubResource("BoxShape3D_shelter")
 [node name="SnowBlocker" type="GPUParticlesCollisionBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
 size = Vector3(6.6, 4.6, 5.6)
+
+[node name="Table" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.2, 1.65)
+use_collision = true
+
+[node name="Top" type="CSGBox3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+size = Vector3(1.2, 0.05, 0.7)
+material = SubResource("StandardMaterial3D_wood")
+
+[node name="Leg1" type="CSGBox3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, 0.375, -0.29)
+size = Vector3(0.06, 0.75, 0.06)
+material = SubResource("StandardMaterial3D_wood")
+
+[node name="Leg2" type="CSGBox3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, 0.375, -0.29)
+size = Vector3(0.06, 0.75, 0.06)
+material = SubResource("StandardMaterial3D_wood")
+
+[node name="Leg3" type="CSGBox3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, 0.375, 0.29)
+size = Vector3(0.06, 0.75, 0.06)
+material = SubResource("StandardMaterial3D_wood")
+
+[node name="Leg4" type="CSGBox3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, 0.375, 0.29)
+size = Vector3(0.06, 0.75, 0.06)
+material = SubResource("StandardMaterial3D_wood")
+
+[node name="CompanionBed" parent="." instance=ExtResource("3_bed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, 0.2, -0.6)
+bed_id = &"companion_bed"
+can_sleep_here = false
+
+[node name="PlayerBed" parent="." instance=ExtResource("3_bed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.35, 0.2, 0.6)
+bed_id = &"cabin_bed"
+
+[node name="Closet" parent="." instance=ExtResource("4_closet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 0.2, -1.85)

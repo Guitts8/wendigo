@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/world/hiding_spot.gd" id="1_hiding"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_closet"]
+albedo_color = Color(0.27, 0.19, 0.13, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_inside"]
+size = Vector3(0.9, 1.8, 0.7)
+
+[node name="Closet" type="Node3D"]
+
+[node name="Body" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Outer" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+size = Vector3(1.1, 2.1, 0.9)
+material = SubResource("StandardMaterial3D_closet")
+
+[node name="Inside" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0.05)
+operation = 2
+size = Vector3(1, 2, 0.9)
+material = SubResource("StandardMaterial3D_closet")
+
+[node name="HidingSpot" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_hiding")
+spot_id = &"cabin_closet"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HidingSpot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.05)
+shape = SubResource("BoxShape3D_inside")
