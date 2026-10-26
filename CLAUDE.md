@@ -16,6 +16,15 @@ Sobrevivência e horror em 3D, primeira pessoa, PC, em **Godot 4 com GDScript**.
 - Testes de fumaça: cena temporária em `res://tmp_smoke/` rodada headless e apagada depois (não comitar).
 - No headless, `DisplayServer` não suporta algumas chamadas (ex.: `keyboard_get_keycode_from_physical`).
 
+- GPU da máquina de desenvolvimento: Intel UHD integrada (D3D12). Cuidado com efeitos caros (fog volumétrico, muitas sombras).
+- `_ready()` dos filhos roda antes do pai: um filho do Player que precisa de `player.inventory` etc. deve fazer `await player.ready` se `not player.is_node_ready()`.
+
+## Estrutura atual
+- Autoloads (ordem): `Events` (sinais globais), `Items` (catálogo), `WorldClock`, `SurvivalStats`. Os dois últimos são `.tscn` para os `@export` serem editáveis no Inspector.
+- Itens: scripts em `scenes/items/` (`ItemData`, `FoodData`, `LightFuelData`); dados em `data/items/*.tres`, registrados em `data/items/item_catalog.tres`. O inventário guarda só id + quantidade.
+- O `DayNightCycle` do nível aplica o `WorldClock` no sol, lua, céu e neblina. O `Player` informa ao `SurvivalStats` abrigo/calor/esforço via `WarmthZone`s.
+- Depuração (builds de debug): F3 painel, F4 nevasca, F6 +1 h, F7 −20 calor, F8 −20 fome.
+
 ## Camadas de física
 1. `world`: terreno, cabana, árvores, rochas.
 2. `player`: o jogador (máscara: `world`).

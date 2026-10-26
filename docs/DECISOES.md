@@ -23,3 +23,11 @@ Formato:
 ## 2026-10-26 — Convenções de código e assets
 **Decisão:** nomes de arquivos e nós em inglês, comentários em português, cenas pequenas e reaproveitáveis, placeholders CSG por enquanto.
 **Motivo:** definido no README.
+
+## 2026-10-26 — Agachar na tecla C
+**Decisão:** agachar usa C (não Ctrl).
+**Motivo:** preferência do autor.
+
+## 2026-10-26 — Pulo adiado
+**Decisão:** sem pulo por enquanto; `jump_velocity = 0` no Player e sem ação "jump". Decidir depois entre sem pulo (transpor por contexto), pulo livre ou pulo baixo com custo.
+**Motivo:** o autor quer decidir mais tarde; o código aceita qualquer resposta.
