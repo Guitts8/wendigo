@@ -20,7 +20,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"interact") and can_interact_with_target():
+	if event.is_action_pressed(&"interact") and player.input_enabled and can_interact_with_target():
 		current_target.interact(player)
 		get_viewport().set_input_as_handled()
 

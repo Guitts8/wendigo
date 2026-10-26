@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/interactables/campfire.tscn" id="1_campfire"]
+[ext_resource type="Script" path="res://scenes/world/warmth_zone.gd" id="2_warmth"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
 albedo_color = Color(0.36, 0.27, 0.2, 1)
@@ -13,6 +14,9 @@ roughness = 0.95
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_roof"]
 albedo_color = Color(0.22, 0.18, 0.16, 1)
 roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_shelter"]
+size = Vector3(5.6, 2.8, 4.6)
 
 [node name="Cabin" type="Node3D"]
 
@@ -82,3 +86,17 @@ material = SubResource("StandardMaterial3D_wood")
 
 [node name="HearthFire" parent="." instance=ExtResource("1_campfire")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.2, -1.9)
+
+[node name="Shelter" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_warmth")
+is_shelter = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shelter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+shape = SubResource("BoxShape3D_shelter")
+
+[node name="SnowBlocker" type="GPUParticlesCollisionBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+size = Vector3(6.6, 4.6, 5.6)

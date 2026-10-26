@@ -1,6 +1,10 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scenes/interactables/campfire.gd" id="1_campfire"]
+[ext_resource type="Script" path="res://scenes/world/warmth_zone.gd" id="2_warmth"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_heat"]
+radius = 3.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fire"]
 size = Vector3(1, 0.5, 1)
@@ -108,3 +112,14 @@ light_color = Color(1, 0.58, 0.28, 1)
 light_energy = 2.5
 shadow_enabled = true
 omni_range = 9.0
+
+[node name="WarmthZone" type="Area3D" parent="." node_paths=PackedStringArray("campfire")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_warmth")
+heat_per_second = 1.2
+campfire = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WarmthZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_heat")
