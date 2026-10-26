@@ -1,0 +1,158 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/cabin.tscn" id="2_cabin"]
+[ext_resource type="PackedScene" path="res://scenes/world/pine_tree.tscn" id="3_tree"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/firewood.tscn" id="4_firewood"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/campfire.tscn" id="5_campfire"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cold"]
+sky_top_color = Color(0.42, 0.49, 0.58, 1)
+sky_horizon_color = Color(0.74, 0.77, 0.81, 1)
+ground_bottom_color = Color(0.28, 0.3, 0.33, 1)
+ground_horizon_color = Color(0.74, 0.77, 0.81, 1)
+
+[sub_resource type="Sky" id="Sky_cold"]
+sky_material = SubResource("ProceduralSkyMaterial_cold")
+
+[sub_resource type="Environment" id="Environment_valley"]
+background_mode = 2
+sky = SubResource("Sky_cold")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.72, 0.76, 0.82, 1)
+fog_density = 0.015
+fog_sky_affect = 0.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(200, 2, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snow"]
+albedo_color = Color(0.86, 0.89, 0.93, 1)
+roughness = 0.85
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+material = SubResource("StandardMaterial3D_snow")
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rock"]
+albedo_color = Color(0.38, 0.39, 0.41, 1)
+roughness = 1.0
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_valley")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0.321394, -0.383022, 0, 0.766044, 0.642788, 0.5, -0.55667, 0.663414, 0, 20, 0)
+light_color = Color(0.85, 0.9, 1, 1)
+light_energy = 0.8
+shadow_enabled = true
+directional_shadow_max_distance = 80.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_ground")
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_ground")
+
+[node name="Terrain" type="Node3D" parent="."]
+
+[node name="SnowMound" type="CSGSphere3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -4.5, 22)
+use_collision = true
+radius = 6.0
+radial_segments = 24
+rings = 12
+material = SubResource("StandardMaterial3D_snow")
+
+[node name="RockA" type="CSGSphere3D" parent="Terrain"]
+transform = Transform3D(1.4, 0, 0, 0, 0.8, 0, 0, 0, 1, 14, 0.2, 3)
+use_collision = true
+radius = 1.2
+radial_segments = 8
+rings = 5
+material = SubResource("StandardMaterial3D_rock")
+
+[node name="RockB" type="CSGSphere3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1.3, -13, 0.1, 2)
+use_collision = true
+radius = 1.0
+radial_segments = 8
+rings = 5
+material = SubResource("StandardMaterial3D_rock")
+
+[node name="Cabin" parent="." instance=ExtResource("2_cabin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+
+[node name="OutdoorFire" parent="." instance=ExtResource("5_campfire")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 7)
+
+[node name="Forest" type="Node3D" parent="."]
+
+[node name="PineTree01" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -8)
+
+[node name="PineTree02" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -10, 0, -2)
+
+[node name="PineTree03" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -14, 0, 6)
+
+[node name="PineTree04" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 8, 0, -10)
+
+[node name="PineTree05" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -2)
+
+[node name="PineTree06" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -3, 0, -12)
+
+[node name="PineTree07" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 4, 0, -15)
+
+[node name="PineTree08" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 8)
+
+[node name="PineTree09" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -9, 0, 14)
+
+[node name="PineTree10" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 11, 0, 15)
+
+[node name="PineTree11" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -16, 0, -10)
+
+[node name="PineTree12" parent="Forest" instance=ExtResource("3_tree")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 18, 0, -12)
+
+[node name="Firewood" type="Node3D" parent="."]
+
+[node name="Firewood01" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Firewood02" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 3, 0, 12)
+
+[node name="Firewood03" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -6)
+
+[node name="Firewood04" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 10, 0, -7)
+
+[node name="Firewood05" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 9)
+
+[node name="Firewood06" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 7, 0, 16)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 9)
