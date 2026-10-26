@@ -95,12 +95,10 @@ Fora do MVP: coração de gelo, imitação de voz, corrupção completa, ciclo, 
 
 NÃO decidir sozinho. Perguntar quando a fase atual depender de uma delas.
 
+Numeração original mantida; as respondidas (2, 3, 6, 8) estão em `docs/DECISOES.md`.
+
 1. Título final do jogo.
-2. Como o colega morre: ferimento, febre ou hipotermia?
-3. O canibalismo no tutorial é mostrado ou só sugerido (tela escura, som)?
 4. Existe forma de reduzir a corrupção, e quão rara ela é?
 5. Quanto tempo é preciso sobreviver até o resgate?
-6. O jogador pode rejogar o tutorial para gerar um wendigo diferente?
 7. Quantos wendigos do ciclo podem existir no mapa ao mesmo tempo?
-8. Vozes: dubladores ou vozes sintéticas no protótipo?
 9. Morte comum (frio, fome, wendigo) também alimenta o ciclo, ou só a transformação?
