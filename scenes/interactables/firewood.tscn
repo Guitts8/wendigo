@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/interactables/pickup.gd" id="1_pickup"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pile"]
+size = Vector3(0.6, 0.3, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bark"]
+albedo_color = Color(0.32, 0.22, 0.14, 1)
+roughness = 0.95
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_log"]
+material = SubResource("StandardMaterial3D_bark")
+top_radius = 0.07
+bottom_radius = 0.07
+height = 0.55
+radial_segments = 8
+rings = 1
+
+[node name="Firewood" type="StaticBody3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_pickup")
+item_id = &"firewood"
+prompt_text = "Pegar lenha"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_pile")
+
+[node name="LogA" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.08, 0.07, 0)
+mesh = SubResource("CylinderMesh_log")
+
+[node name="LogB" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.08, 0.07, 0.02)
+mesh = SubResource("CylinderMesh_log")
+
+[node name="LogC" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.19, -0.02)
+mesh = SubResource("CylinderMesh_log")
