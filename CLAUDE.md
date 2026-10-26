@@ -11,7 +11,15 @@ Sobrevivência e horror em 3D, primeira pessoa, PC, em **Godot 4 com GDScript**.
 - Godot **4.7.2 stable** (não está no PATH). Executável de console para a linha de comando:
   `C:\Users\raul.silva\Downloads\Godot_v4.7.2-stable_win64.exe\Godot_v4.7.2-stable_win64_console.exe`
 - Renderizador: **Forward+** (necessário para fog volumétrico).
-- Validar scripts sem abrir o editor: `<godot_console> --headless --path . --quit` (importa o projeto e reporta erros de parse).
+- Validar sem abrir o editor: `<godot_console> --headless --path . --import` e depois `<godot_console> --headless --path . --quit-after 300` (roda a cena principal e mostra erros de script/cena).
+- `--check-only --script` não registra autoloads: acusa falsamente "Identifier not found: Events". Prefira rodar a cena.
+- Testes de fumaça: cena temporária em `res://tmp_smoke/` rodada headless e apagada depois (não comitar).
+- No headless, `DisplayServer` não suporta algumas chamadas (ex.: `keyboard_get_keycode_from_physical`).
+
+## Camadas de física
+1. `world`: terreno, cabana, árvores, rochas.
+2. `player`: o jogador (máscara: `world`).
+3. `interactable`: objetos com `interact()` (sem máscara). O raio de interação usa `world` + `interactable`, para paredes bloquearem.
 
 ## Resumo do jogo
 
