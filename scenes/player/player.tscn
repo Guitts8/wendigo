@@ -4,11 +4,58 @@
 [ext_resource type="Script" path="res://scenes/player/interactor.gd" id="2_interactor"]
 [ext_resource type="Script" path="res://scenes/player/inventory.gd" id="3_inventory"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="4_hud"]
+[ext_resource type="Script" path="res://scenes/player/item_user.gd" id="5_item_user"]
+[ext_resource type="Script" path="res://scenes/player/lantern.gd" id="6_lantern"]
+[ext_resource type="PackedScene" path="res://scenes/ui/body_feedback.tscn" id="7_body_feedback"]
+[ext_resource type="PackedScene" path="res://scenes/ui/journal.tscn" id="8_journal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_over.tscn" id="9_game_over"]
+[ext_resource type="PackedScene" path="res://scenes/ui/debug_overlay.tscn" id="10_debug"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 resource_local_to_scene = true
 radius = 0.35
 height = 1.8
+
+[sub_resource type="Gradient" id="Gradient_breath"]
+colors = PackedColorArray(1, 1, 1, 0.22, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_breath"]
+gradient = SubResource("Gradient_breath")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_breath"]
+direction = Vector3(0, -0.2, -1)
+spread = 20.0
+initial_velocity_min = 0.4
+initial_velocity_max = 0.7
+gravity = Vector3(0, 0.15, 0)
+damping_min = 0.4
+damping_max = 0.7
+scale_min = 0.8
+scale_max = 1.6
+color_ramp = SubResource("GradientTexture1D_breath")
+
+[sub_resource type="Gradient" id="Gradient_soft"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_soft"]
+gradient = SubResource("Gradient_soft")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_breath"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_soft")
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_breath"]
+material = SubResource("StandardMaterial3D_breath")
+size = Vector2(0.15, 0.15)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -33,8 +80,53 @@ collision_mask = 5
 script = ExtResource("2_interactor")
 player = NodePath("../../..")
 
+[node name="Lantern" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.25, -0.1)
+script = ExtResource("6_lantern")
+player = NodePath("../../..")
+
+[node name="Spot" type="SpotLight3D" parent="Head/Camera3D/Lantern"]
+visible = false
+light_color = Color(1, 0.92, 0.78, 1)
+light_energy = 3.0
+shadow_enabled = true
+spot_range = 20.0
+spot_angle = 32.0
+
+[node name="Glow" type="OmniLight3D" parent="Head/Camera3D/Lantern"]
+visible = false
+light_color = Color(1, 0.92, 0.78, 1)
+light_energy = 0.4
+omni_range = 4.0
+
+[node name="Breath" type="GPUParticles3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, -0.35)
+emitting = false
+amount = 8
+lifetime = 1.4
+one_shot = true
+explosiveness = 0.6
+local_coords = false
+process_material = SubResource("ParticleProcessMaterial_breath")
+draw_pass_1 = SubResource("QuadMesh_breath")
+
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("3_inventory")
 
+[node name="ItemUser" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("5_item_user")
+player = NodePath("..")
+
+[node name="BodyFeedback" parent="." node_paths=PackedStringArray("camera", "breath") instance=ExtResource("7_body_feedback")]
+camera = NodePath("../Head/Camera3D")
+breath = NodePath("../Head/Camera3D/Breath")
+
 [node name="Hud" parent="." node_paths=PackedStringArray("interactor") instance=ExtResource("4_hud")]
 interactor = NodePath("../Head/Camera3D/Interactor")
+
+[node name="Journal" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_journal")]
+player = NodePath("..")
+
+[node name="GameOver" parent="." instance=ExtResource("9_game_over")]
+
+[node name="DebugOverlay" parent="." instance=ExtResource("10_debug")]

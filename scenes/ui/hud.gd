@@ -15,7 +15,11 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	var text: String = interactor.get_prompt_text() if interactor else ""
+	# Some com o diário aberto ou depois da morte.
+	visible = interactor != null and interactor.player.input_enabled
+	if not visible:
+		return
+	var text: String = interactor.get_prompt_text()
 	_prompt_label.visible = not text.is_empty()
 	if text.is_empty():
 		return

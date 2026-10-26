@@ -1,0 +1,148 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/journal.gd" id="1_journal"]
+
+[node name="Journal" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_journal")
+
+[node name="Root" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -250.0
+offset_right = 340.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Root/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="Root/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Root/Panel/Margin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Diário"
+
+[node name="TimeLabel" type="Label" parent="Root/Panel/Margin/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "Dia 1, dia"
+
+[node name="Stats" type="GridContainer" parent="Root/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 6
+columns = 3
+
+[node name="WarmthName" type="Label" parent="Root/Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Calor"
+
+[node name="WarmthBar" type="ProgressBar" parent="Root/Panel/Margin/VBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="WarmthState" type="Label" parent="Root/Panel/Margin/VBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="HungerName" type="Label" parent="Root/Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Fome"
+
+[node name="HungerBar" type="ProgressBar" parent="Root/Panel/Margin/VBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="HungerState" type="Label" parent="Root/Panel/Margin/VBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="LightName" type="Label" parent="Root/Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Luz"
+
+[node name="LightBar" type="ProgressBar" parent="Root/Panel/Margin/VBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="LightState" type="Label" parent="Root/Panel/Margin/VBox/Stats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Separator" type="HSeparator" parent="Root/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="WeightLabel" type="Label" parent="Root/Panel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Carga: 0.0 / 20 kg"
+
+[node name="Scroll" type="ScrollContainer" parent="Root/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ItemRows" type="VBoxContainer" parent="Root/Panel/Margin/VBox/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="Hint" type="Label" parent="Root/Panel/Margin/VBox"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+text = "Tab ou Esc para fechar"
+horizontal_alignment = 2
