@@ -1,0 +1,97 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/valley.tscn" id="1_valley"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/characters/companion.tscn" id="3_companion"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/firewood.tscn" id="4_firewood"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/item_pickup.tscn" id="5_item_pickup"]
+[ext_resource type="Resource" path="res://data/items/canned_food.tres" id="6_canned"]
+[ext_resource type="Resource" path="res://data/items/bandage.tres" id="7_bandage"]
+[ext_resource type="PackedScene" path="res://scenes/world/snowfall.tscn" id="8_snowfall"]
+[ext_resource type="Script" path="res://scenes/tutorial/tutorial_director.gd" id="9_director"]
+
+[node name="Tutorial" type="Node3D"]
+
+[node name="Valley" parent="." instance=ExtResource("1_valley")]
+
+[node name="Companion" parent="." instance=ExtResource("3_companion")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, 0.52, -0.6)
+
+[node name="Items" type="Node3D" parent="."]
+
+[node name="CannedFood01" parent="Items" instance=ExtResource("5_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.825, 1.55)
+item = ExtResource("6_canned")
+
+[node name="CannedFood02" parent="Items" instance=ExtResource("5_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0.825, 1.85)
+item = ExtResource("6_canned")
+
+[node name="CannedFood03" parent="Items" instance=ExtResource("5_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0, 0.825, 1.5)
+item = ExtResource("6_canned")
+
+[node name="Bandage01" parent="Items" instance=ExtResource("5_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0.825, 1.6)
+item = ExtResource("7_bandage")
+
+[node name="Bandage02" parent="Items" instance=ExtResource("5_item_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 0.825, 1.85)
+item = ExtResource("7_bandage")
+
+[node name="Firewood" type="Node3D" parent="."]
+
+[node name="Firewood01" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 5)
+
+[node name="Firewood02" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 4)
+
+[node name="Firewood03" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -5)
+
+[node name="Firewood04" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
+
+[node name="Firewood05" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 9)
+
+[node name="Firewood06" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 0)
+
+[node name="Firewood07" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -14)
+
+[node name="Firewood08" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -16)
+
+[node name="Firewood09" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 2)
+
+[node name="Firewood10" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 6)
+
+[node name="Firewood11" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+
+[node name="Firewood12" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -25)
+
+[node name="Firewood13" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -28)
+
+[node name="Firewood14" parent="Firewood" instance=ExtResource("4_firewood")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -12)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.9)
+
+[node name="Snowfall" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_snowfall")]
+target = NodePath("../Player")
+
+[node name="TutorialDirector" type="Node" parent="." node_paths=PackedStringArray("player", "companion", "hearth", "player_bed")]
+script = ExtResource("9_director")
+player = NodePath("../Player")
+companion = NodePath("../Companion")
+hearth = NodePath("../Valley/Cabin/HearthFire")
+player_bed = NodePath("../Valley/Cabin/PlayerBed")

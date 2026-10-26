@@ -38,5 +38,9 @@ func _get_cause_text(cause: int) -> String:
 
 
 func _on_retry_pressed() -> void:
+	# Autoloads sobrevivem ao recarregar: zera o que pode ter ficado ligado.
+	Engine.time_scale = 1.0
+	Dialogue.stop()
+	ScreenFade.set_black(false)
 	get_tree().paused = false
 	get_tree().reload_current_scene()

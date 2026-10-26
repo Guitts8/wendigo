@@ -2,6 +2,7 @@ class_name DebugOverlay
 extends CanvasLayer
 ## Painel de testes (só em builds de debug). F3 mostra os números.
 ## Atalhos: F4 nevasca, F6 avança 1 hora, F7 tira calor, F8 tira fome.
+## F9 (pular etapa do tutorial) é tratado pelo TutorialDirector.
 
 const DRAIN_AMOUNT: float = 20.0
 

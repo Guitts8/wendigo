@@ -15,8 +15,11 @@ const PHASE_NAMES: PackedStringArray = ["amanhecer", "dia", "entardecer", "noite
 
 var is_open: bool = false
 
+var _objective: String = ""
+
 @onready var _root: Control = $Root
 @onready var _time_label: Label = %TimeLabel
+@onready var _objective_label: Label = %ObjectiveLabel
 @onready var _weight_label: Label = %WeightLabel
 @onready var _item_rows: VBoxContainer = %ItemRows
 @onready var _warmth_bar: ProgressBar = %WarmthBar
@@ -30,6 +33,7 @@ var is_open: bool = false
 func _ready() -> void:
 	_root.visible = false
 	SurvivalStats.died.connect(_on_died)
+	Events.objective_changed.connect(_on_objective_changed)
 	# O diário é filho do jogador: o _ready dele roda antes do pai preencher os @onready.
 	if not player.is_node_ready():
 		await player.ready
@@ -77,6 +81,8 @@ func close() -> void:
 
 
 func _refresh_stats() -> void:
+	_objective_label.visible = not _objective.is_empty()
+	_objective_label.text = "Anotação: %s" % _objective
 	_time_label.text = "Dia %d, %s" % [WorldClock.day, PHASE_NAMES[WorldClock.phase]]
 	_set_meter(_warmth_bar, _warmth_state, SurvivalStats.Stat.WARMTH, WARMTH_STATES)
 	_set_meter(_hunger_bar, _hunger_state, SurvivalStats.Stat.HUNGER, HUNGER_STATES)
@@ -138,6 +144,10 @@ func _on_action_pressed(item_id: StringName, action: StringName) -> void:
 func _on_inventory_changed(_item_id: StringName, _amount: int) -> void:
 	if is_open:
 		_rebuild_items()
+
+
+func _on_objective_changed(text: String) -> void:
+	_objective = text
 
 
 func _on_died(_cause: int) -> void:
