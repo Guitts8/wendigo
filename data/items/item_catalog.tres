@@ -7,7 +7,8 @@
 [ext_resource type="Resource" path="res://data/items/raw_meat.tres" id="5_raw"]
 [ext_resource type="Resource" path="res://data/items/cooked_meat.tres" id="6_cooked"]
 [ext_resource type="Resource" path="res://data/items/kerosene.tres" id="7_kerosene"]
+[ext_resource type="Resource" path="res://data/items/bandage.tres" id="8_bandage"]
 
 [resource]
 script = ExtResource("1_catalog")
-items = Array[ExtResource("2_item_data")]([ExtResource("3_firewood"), ExtResource("4_canned"), ExtResource("5_raw"), ExtResource("6_cooked"), ExtResource("7_kerosene")])
+items = Array[ExtResource("2_item_data")]([ExtResource("3_firewood"), ExtResource("4_canned"), ExtResource("5_raw"), ExtResource("6_cooked"), ExtResource("7_kerosene"), ExtResource("8_bandage")])

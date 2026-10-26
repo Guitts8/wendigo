@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MedicalData" format=3]
+
+[ext_resource type="Script" path="res://scenes/items/medical_data.gd" id="1_medical"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bandage"]
+albedo_color = Color(0.9, 0.88, 0.82, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_bandage"]
+material = SubResource("StandardMaterial3D_bandage")
+size = Vector3(0.1, 0.05, 0.08)
+
+[resource]
+script = ExtResource("1_medical")
+id = &"bandage"
+display_name = "Curativo"
+description = "Gaze e esparadrapo."
+weight = 0.1
+world_mesh = SubResource("BoxMesh_bandage")
