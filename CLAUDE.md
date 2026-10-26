@@ -20,10 +20,14 @@ Sobrevivência e horror em 3D, primeira pessoa, PC, em **Godot 4 com GDScript**.
 - `_ready()` dos filhos roda antes do pai: um filho do Player que precisa de `player.inventory` etc. deve fazer `await player.ready` se `not player.is_node_ready()`.
 
 ## Estrutura atual
-- Autoloads (ordem): `Events` (sinais globais), `Items` (catálogo), `WorldClock`, `SurvivalStats`. Os dois últimos são `.tscn` para os `@export` serem editáveis no Inspector.
+- Autoloads (ordem): `Events` (sinais globais), `Items` (catálogo), `WorldClock`, `SurvivalStats`, `Dialogue` (falas/legendas), `ScreenFade` (tela preta de transição). Os `.tscn` existem para os `@export` serem editáveis no Inspector.
+- Cena principal: `scenes/levels/tutorial.tscn` = `scenes/world/valley.tscn` (mapa único: cabana com móveis, lago, fenda, trilha bloqueada, floresta) + colega + itens + `TutorialDirector`. `test_level.tscn` é só caixa de areia.
+- Falas: `data/dialogue/*.json` (`{chave: [{speaker, text, audio?, duration?}]}`), speaker vazio = pensamento. O roteiro (`scenes/tutorial/tutorial_director.gd`) avança por etapas ouvindo o `Events`.
+- Autoloads sobrevivem a `reload_current_scene()`: quem recarrega deve zerar `Engine.time_scale`, `Dialogue` e `ScreenFade` (ver `GameOver`).
+- Desempenho: ~45–60 FPS na Intel UHD com 110 árvores e neve. Otimizar depois (MultiMesh nas árvores, menos sombras).
 - Itens: scripts em `scenes/items/` (`ItemData`, `FoodData`, `LightFuelData`); dados em `data/items/*.tres`, registrados em `data/items/item_catalog.tres`. O inventário guarda só id + quantidade.
 - O `DayNightCycle` do nível aplica o `WorldClock` no sol, lua, céu e neblina. O `Player` informa ao `SurvivalStats` abrigo/calor/esforço via `WarmthZone`s.
-- Depuração (builds de debug): F3 painel, F4 nevasca, F6 +1 h, F7 −20 calor, F8 −20 fome.
+- Depuração (builds de debug): F3 painel, F4 nevasca, F6 +1 h, F7 −20 calor, F8 −20 fome, F9 pula etapa do tutorial.
 
 ## Camadas de física
 1. `world`: terreno, cabana, árvores, rochas.
