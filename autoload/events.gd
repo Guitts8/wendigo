@@ -22,3 +22,19 @@ signal campfire_extinguished(campfire: Campfire)
 
 ## O lampião do jogador acendeu ou apagou (luz visível de longe).
 signal lantern_toggled(is_on: bool, world_position: Vector3)
+
+## O jogador entrou ou saiu de um esconderijo.
+signal hiding_spot_entered(spot_id: StringName, world_position: Vector3)
+signal hiding_spot_exited(spot_id: StringName, world_position: Vector3)
+
+## O jogador dormiu numa cama (o recorder usa para "onde dormiu").
+signal slept(bed_id: StringName, world_position: Vector3, hours: float)
+
+## O jogador entrou numa TriggerZone do roteiro.
+signal trigger_entered(trigger_id: StringName)
+
+## O jogador cuidou do colega (kind: &"treat" curativo, &"food" comida).
+signal companion_cared(kind: StringName)
+
+## A anotação atual do diário mudou (objetivo do roteiro).
+signal objective_changed(text: String)

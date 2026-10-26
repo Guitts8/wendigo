@@ -1,0 +1,67 @@
+{
+	"intro": [
+		{ "speaker": "Colega", "text": "Ai... Essa perna não para de doer." },
+		{ "speaker": "Colega", "text": "A nevasca fechou a trilha. A gente não sai daqui tão cedo." },
+		{ "speaker": "Colega", "text": "Eu não consigo andar. Vai ter que ser você." },
+		{ "speaker": "Colega", "text": "Primeiro o fogo. Tem lenha lá fora, perto da cabana. Não se afasta nesse branco." }
+	],
+	"wood_first": [
+		{ "text": "Isso. Mais um pouco." }
+	],
+	"instr_fire": [
+		{ "text": "Já tenho lenha. Preciso voltar e acender a lareira." }
+	],
+	"instr_eat": [
+		{ "speaker": "Colega", "text": "Pronto... Agora sim." },
+		{ "speaker": "Colega", "text": "Come alguma coisa. Tem enlatado em cima da mesa." }
+	],
+	"instr_treat": [
+		{ "speaker": "Colega", "text": "Eu tô sem fome. Guarda o resto, não sei quantos dias a gente vai ficar aqui." },
+		{ "speaker": "Colega", "text": "Ei, me ajuda aqui. O kit tá na mesa." }
+	],
+	"instr_sleep": [
+		{ "speaker": "Colega", "text": "Ai! ... Obrigado." },
+		{ "speaker": "Colega", "text": "Põe lenha na lareira antes de deitar. A noite aqui é outra coisa." }
+	],
+	"day2_morning": [
+		{ "speaker": "Colega", "text": "Tô com frio... Tô com muito frio." },
+		{ "speaker": "Colega", "text": "A perna tá quente. Acho que infeccionou." },
+		{ "text": "Ele está queimando de febre." }
+	],
+	"remind_wood": [
+		{ "speaker": "Colega", "text": "Lenha. Lá fora, perto da cabana." }
+	],
+	"remind_fire": [
+		{ "speaker": "Colega", "text": "A lareira. Põe a lenha e acende." }
+	],
+	"remind_eat": [
+		{ "speaker": "Colega", "text": "Come. Tem enlatado na mesa." }
+	],
+	"remind_treat": [
+		{ "speaker": "Colega", "text": "A perna... O kit tá na mesa." }
+	],
+	"remind_sleep": [
+		{ "speaker": "Colega", "text": "Vai dormir. Amanhã a gente vê o que faz." }
+	],
+	"talk_injured_1": [
+		{ "speaker": "Colega", "text": "A gente vai sair dessa. A nevasca não dura pra sempre." }
+	],
+	"talk_injured_2": [
+		{ "speaker": "Colega", "text": "Fica perto do fogo. Lá fora o frio mata rápido." }
+	],
+	"talk_injured_3": [
+		{ "speaker": "Colega", "text": "Não sai à noite. Não com esse tempo." }
+	],
+	"talk_fever_1": [
+		{ "speaker": "Colega", "text": "Tô com frio..." }
+	],
+	"talk_fever_2": [
+		{ "speaker": "Colega", "text": "Fala comigo... Me distrai um pouco." }
+	],
+	"trail_blocked": [
+		{ "text": "A trilha sumiu debaixo da neve. Não dá pra passar." }
+	],
+	"lake_seen": [
+		{ "text": "O lago congelou inteiro." }
+	]
+}
