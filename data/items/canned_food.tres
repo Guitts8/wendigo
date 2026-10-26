@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="FoodData" format=3]
+
+[ext_resource type="Script" path="res://scenes/items/food_data.gd" id="1_food"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_can"]
+albedo_color = Color(0.55, 0.22, 0.18, 1)
+metallic = 0.6
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_can"]
+material = SubResource("StandardMaterial3D_can")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.12
+radial_segments = 12
+rings = 1
+
+[resource]
+script = ExtResource("1_food")
+hunger_restore = 15.0
+id = &"canned_food"
+display_name = "Enlatado"
+description = "Pouco, mas seguro."
+weight = 0.5
+world_mesh = SubResource("CylinderMesh_can")

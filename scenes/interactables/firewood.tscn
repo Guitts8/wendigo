@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scenes/interactables/pickup.gd" id="1_pickup"]
+[ext_resource type="Resource" path="res://data/items/firewood.tres" id="2_item"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pile"]
 size = Vector3(0.6, 0.3, 0.6)
@@ -21,7 +22,7 @@ rings = 1
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_pickup")
-item_id = &"firewood"
+item = ExtResource("2_item")
 prompt_text = "Pegar lenha"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

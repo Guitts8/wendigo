@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="LightFuelData" format=3]
+
+[ext_resource type="Script" path="res://scenes/items/light_fuel_data.gd" id="1_fuel"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_battery"]
+albedo_color = Color(0.15, 0.15, 0.16, 1)
+metallic = 0.5
+roughness = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_battery"]
+material = SubResource("StandardMaterial3D_battery")
+top_radius = 0.016
+bottom_radius = 0.016
+height = 0.07
+radial_segments = 8
+rings = 1
+
+[resource]
+script = ExtResource("1_fuel")
+light_restore = 50.0
+id = &"battery"
+display_name = "Pilha"
+description = "Recarrega metade da lanterna."
+weight = 0.2
+world_mesh = SubResource("CylinderMesh_battery")

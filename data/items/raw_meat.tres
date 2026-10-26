@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FoodData" format=3]
+
+[ext_resource type="Script" path="res://scenes/items/food_data.gd" id="1_food"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_raw"]
+albedo_color = Color(0.55, 0.08, 0.08, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_raw"]
+material = SubResource("StandardMaterial3D_raw")
+size = Vector3(0.2, 0.07, 0.14)
+
+[resource]
+script = ExtResource("1_food")
+hunger_restore = 25.0
+corruption_gain = 3.0
+cooks_into = &"cooked_meat"
+id = &"raw_meat"
+display_name = "Carne crua"
+description = "Melhor cozinhar numa fogueira acesa."
+weight = 0.8
+world_mesh = SubResource("BoxMesh_raw")

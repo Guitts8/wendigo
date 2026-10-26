@@ -1,16 +1,11 @@
 class_name Inventory
 extends Node
 ## Inventário por quantidade, limitado pelo peso total.
-## Os pesos ficam numa tabela aqui por enquanto; quando houver mais itens,
-## isso vira um Resource de definição de item.
+## Guarda só ids; os dados de cada item (peso, nome) vêm do autoload Items.
 
 signal changed(item_id: StringName, amount: int)
 
 const DEFAULT_ITEM_WEIGHT: float = 1.0
-## Peso de cada item em kg.
-const ITEM_WEIGHTS: Dictionary = {
-	&"firewood": 2.0,
-}
 
 ## Peso máximo carregado em kg.
 @export var max_weight: float = 20.0
@@ -26,8 +21,17 @@ func has(item_id: StringName, amount: int = 1) -> bool:
 	return get_amount(item_id) >= amount
 
 
+## Ids dos itens carregados, na ordem em que foram pegos.
+func get_item_ids() -> Array[StringName]:
+	var ids: Array[StringName] = []
+	ids.assign(_items.keys())
+	return ids
+
+
 func get_item_weight(item_id: StringName) -> float:
-	return ITEM_WEIGHTS.get(item_id, DEFAULT_ITEM_WEIGHT)
+	if not Items.has_item(item_id):
+		return DEFAULT_ITEM_WEIGHT
+	return Items.get_item(item_id).weight
 
 
 func get_total_weight() -> float:

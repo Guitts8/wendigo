@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemCatalog" format=3]
+
+[ext_resource type="Script" path="res://scenes/items/item_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scenes/items/item_data.gd" id="2_item_data"]
+[ext_resource type="Resource" path="res://data/items/firewood.tres" id="3_firewood"]
+[ext_resource type="Resource" path="res://data/items/canned_food.tres" id="4_canned"]
+[ext_resource type="Resource" path="res://data/items/raw_meat.tres" id="5_raw"]
+[ext_resource type="Resource" path="res://data/items/cooked_meat.tres" id="6_cooked"]
+[ext_resource type="Resource" path="res://data/items/battery.tres" id="7_battery"]
+
+[resource]
+script = ExtResource("1_catalog")
+items = Array[ExtResource("2_item_data")]([ExtResource("3_firewood"), ExtResource("4_canned"), ExtResource("5_raw"), ExtResource("6_cooked"), ExtResource("7_battery")])

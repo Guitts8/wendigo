@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="FoodData" format=3]
+
+[ext_resource type="Script" path="res://scenes/items/food_data.gd" id="1_food"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cooked"]
+albedo_color = Color(0.36, 0.2, 0.1, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_cooked"]
+material = SubResource("StandardMaterial3D_cooked")
+size = Vector3(0.18, 0.06, 0.12)
+
+[resource]
+script = ExtResource("1_food")
+hunger_restore = 35.0
+warmth_restore = 5.0
+id = &"cooked_meat"
+display_name = "Carne cozida"
+description = "Quente e nutritiva."
+weight = 0.7
+world_mesh = SubResource("BoxMesh_cooked")
