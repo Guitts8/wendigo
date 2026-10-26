@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/interactables/bed.gd" id="1_bed"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bed"]
+size = Vector3(0.9, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frame"]
+albedo_color = Color(0.3, 0.21, 0.15, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_frame"]
+material = SubResource("StandardMaterial3D_frame")
+size = Vector3(0.9, 0.35, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mattress"]
+albedo_color = Color(0.55, 0.52, 0.46, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_mattress"]
+material = SubResource("StandardMaterial3D_mattress")
+size = Vector3(0.84, 0.12, 1.94)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pillow"]
+albedo_color = Color(0.7, 0.68, 0.62, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_pillow"]
+material = SubResource("StandardMaterial3D_pillow")
+size = Vector3(0.55, 0.08, 0.32)
+
+[node name="Bed" type="StaticBody3D"]
+collision_layer = 5
+collision_mask = 0
+script = ExtResource("1_bed")
+prompt_text = "Dormir"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_bed")
+
+[node name="Frame" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175, 0)
+mesh = SubResource("BoxMesh_frame")
+
+[node name="Mattress" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41, 0)
+mesh = SubResource("BoxMesh_mattress")
+
+[node name="Pillow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, -0.78)
+mesh = SubResource("BoxMesh_pillow")

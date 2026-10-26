@@ -32,8 +32,10 @@ extends CharacterBody3D
 
 var is_crouching: bool = false
 var is_sprinting: bool = false
-## Desligado com o diário aberto ou depois da morte.
+## Desligado com o diário aberto, dormindo ou depois da morte.
 var input_enabled: bool = true
+## Esconderijo em que o jogador está, ou null.
+var current_hiding_spot: HidingSpot = null
 
 var _current_height: float = 0.0
 var _warmth_zones: Array[WarmthZone] = []
@@ -43,6 +45,7 @@ var _warmth_zones: Array[WarmthZone] = []
 @onready var interactor: Interactor = $Head/Camera3D/Interactor
 @onready var inventory: Inventory = $Inventory
 @onready var item_user: ItemUser = $ItemUser
+@onready var sleeper: Sleeper = $Sleeper
 @onready var _collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var _capsule: CapsuleShape3D = _collision_shape.shape as CapsuleShape3D
 
@@ -104,6 +107,15 @@ func enter_warmth_zone(zone: WarmthZone) -> void:
 
 func exit_warmth_zone(zone: WarmthZone) -> void:
 	_warmth_zones.erase(zone)
+
+
+func enter_hiding_spot(spot: HidingSpot) -> void:
+	current_hiding_spot = spot
+
+
+func exit_hiding_spot(spot: HidingSpot) -> void:
+	if current_hiding_spot == spot:
+		current_hiding_spot = null
 
 
 ## Fogueira acesa perto o bastante para cozinhar, ou null.

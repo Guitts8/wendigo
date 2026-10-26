@@ -38,6 +38,8 @@ var running: bool = false
 var is_blizzard: bool = false
 ## 0 = céu limpo, 1 = nevasca total. Sobe e desce aos poucos.
 var blizzard_intensity: float = 0.0
+## Força alvo da nevasca atual (0 a 1).
+var blizzard_strength: float = 1.0
 
 var _blizzard_hours_left: float = 0.0
 
@@ -46,7 +48,7 @@ func _process(delta: float) -> void:
 	if not running:
 		return
 	advance_hours(delta * HOURS_PER_DAY / day_length_seconds)
-	var target: float = 1.0 if is_blizzard else 0.0
+	var target: float = blizzard_strength if is_blizzard else 0.0
 	blizzard_intensity = move_toward(blizzard_intensity, target, delta / maxf(blizzard_ramp_seconds, 0.01))
 
 
@@ -56,8 +58,18 @@ func reset() -> void:
 	phase = _compute_phase(hour)
 	is_blizzard = false
 	blizzard_intensity = 0.0
+	blizzard_strength = 1.0
 	_blizzard_hours_left = 0.0
 	running = true
+
+
+## Pula direto para uma hora do dia (mesmo dia), atualizando a fase.
+func set_hour(new_hour: float) -> void:
+	hour = fposmod(new_hour, HOURS_PER_DAY)
+	var new_phase: DayPhase = _compute_phase(hour)
+	if new_phase != phase:
+		phase = new_phase
+		phase_changed.emit(phase)
 
 
 func advance_hours(hours: float) -> void:
@@ -75,15 +87,20 @@ func advance_hours(hours: float) -> void:
 
 
 ## Liga ou desliga a nevasca. Duração negativa = sorteada entre o mínimo e o máximo.
-func set_blizzard(active: bool, duration_hours: float = -1.0) -> void:
-	if active == is_blizzard:
+## strength = força alvo (0 a 1); com a nevasca já ativa, só atualiza força e duração.
+func set_blizzard(active: bool, duration_hours: float = -1.0, strength: float = 1.0) -> void:
+	if active:
+		blizzard_strength = clampf(strength, 0.0, 1.0)
+	if active == is_blizzard and not active:
 		return
+	var changed: bool = active != is_blizzard
 	is_blizzard = active
 	if active:
 		_blizzard_hours_left = duration_hours if duration_hours > 0.0 else randf_range(blizzard_min_hours, blizzard_max_hours)
 	else:
 		_blizzard_hours_left = 0.0
-	blizzard_changed.emit(active)
+	if changed:
+		blizzard_changed.emit(active)
 
 
 ## Altura do sol de -1 (meia-noite) a 1 (meio-dia); 0 às 6 h e às 18 h.

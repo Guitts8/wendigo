@@ -42,6 +42,8 @@ const MAX_VALUE: float = 100.0
 ## Perda por segundo em repouso (0.067 ≈ zera em 25 min).
 @export var hunger_loss: float = 0.067
 @export var exertion_hunger_multiplier: float = 1.6
+## Dormindo o corpo gasta menos.
+@export var sleeping_hunger_multiplier: float = 0.4
 ## Aplicado quando o calor está no estágio 2 (congelando) ou pior.
 @export var cold_hunger_multiplier: float = 1.3
 ## Segundos com a fome zerada até morrer. 0 = morte imediata.
@@ -63,6 +65,7 @@ var environment_heat: float = 0.0
 var is_sheltered: bool = false
 var is_exerting: bool = false
 var lantern_on: bool = false
+var is_sleeping: bool = false
 
 ## Só drena com uma partida em andamento (o jogador chama reset()).
 var active: bool = false
@@ -99,6 +102,7 @@ func reset() -> void:
 	is_sheltered = false
 	is_exerting = false
 	lantern_on = false
+	is_sleeping = false
 	_starvation_time = 0.0
 	is_dead = false
 	active = true
@@ -176,6 +180,8 @@ func _compute_hunger_rate() -> float:
 	var loss: float = hunger_loss
 	if is_exerting:
 		loss *= exertion_hunger_multiplier
+	if is_sleeping:
+		loss *= sleeping_hunger_multiplier
 	if get_stage(Stat.WARMTH) >= 2:
 		loss *= cold_hunger_multiplier
 	return -loss
