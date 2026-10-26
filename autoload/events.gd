@@ -20,5 +20,5 @@ signal campfire_lit(campfire: Campfire)
 ## Uma fogueira apagou porque o combustível acabou.
 signal campfire_extinguished(campfire: Campfire)
 
-## A lanterna do jogador ligou ou desligou (luz visível de longe).
+## O lampião do jogador acendeu ou apagou (luz visível de longe).
 signal lantern_toggled(is_on: bool, world_position: Vector3)

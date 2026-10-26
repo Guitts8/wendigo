@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/interactables/item_pickup.tscn" id="8_item_pickup"]
 [ext_resource type="Resource" path="res://data/items/canned_food.tres" id="9_canned"]
 [ext_resource type="Resource" path="res://data/items/raw_meat.tres" id="10_raw_meat"]
-[ext_resource type="Resource" path="res://data/items/battery.tres" id="11_battery"]
+[ext_resource type="Resource" path="res://data/items/kerosene.tres" id="11_kerosene"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cold"]
 sky_top_color = Color(0.42, 0.49, 0.58, 1)
@@ -191,9 +191,9 @@ item = ExtResource("10_raw_meat")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 12)
 item = ExtResource("10_raw_meat")
 
-[node name="Battery01" parent="Items" instance=ExtResource("8_item_pickup")]
+[node name="Kerosene01" parent="Items" instance=ExtResource("8_item_pickup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.05, 1.6)
-item = ExtResource("11_battery")
+item = ExtResource("11_kerosene")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 9)

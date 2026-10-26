@@ -57,6 +57,49 @@ billboard_keep_scale = true
 material = SubResource("StandardMaterial3D_breath")
 size = Vector2(0.15, 0.15)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lamp_metal"]
+albedo_color = Color(0.16, 0.15, 0.14, 1)
+metallic = 0.7
+roughness = 0.45
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lamp_base"]
+material = SubResource("StandardMaterial3D_lamp_metal")
+top_radius = 0.045
+bottom_radius = 0.05
+height = 0.03
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lamp_glass"]
+transparency = 1
+albedo_color = Color(1, 0.8, 0.55, 0.45)
+emission_enabled = true
+emission = Color(1, 0.6, 0.25, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lamp_glass"]
+material = SubResource("StandardMaterial3D_lamp_glass")
+top_radius = 0.035
+bottom_radius = 0.04
+height = 0.09
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lamp_cap"]
+material = SubResource("StandardMaterial3D_lamp_metal")
+top_radius = 0.02
+bottom_radius = 0.045
+height = 0.03
+radial_segments = 12
+rings = 1
+
+[sub_resource type="TorusMesh" id="TorusMesh_lamp_handle"]
+material = SubResource("StandardMaterial3D_lamp_metal")
+inner_radius = 0.034
+outer_radius = 0.04
+rings = 16
+ring_segments = 4
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 1
@@ -81,23 +124,39 @@ script = ExtResource("2_interactor")
 player = NodePath("../../..")
 
 [node name="Lantern" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.25, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, -0.34, -0.45)
 script = ExtResource("6_lantern")
 player = NodePath("../../..")
 
-[node name="Spot" type="SpotLight3D" parent="Head/Camera3D/Lantern"]
+[node name="Light" type="OmniLight3D" parent="Head/Camera3D/Lantern"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
 visible = false
-light_color = Color(1, 0.92, 0.78, 1)
-light_energy = 3.0
+light_color = Color(1, 0.68, 0.38, 1)
+light_energy = 1.6
 shadow_enabled = true
-spot_range = 20.0
-spot_angle = 32.0
+omni_range = 8.0
 
-[node name="Glow" type="OmniLight3D" parent="Head/Camera3D/Lantern"]
+[node name="Model" type="Node3D" parent="Head/Camera3D/Lantern"]
 visible = false
-light_color = Color(1, 0.92, 0.78, 1)
-light_energy = 0.4
-omni_range = 4.0
+
+[node name="Base" type="MeshInstance3D" parent="Head/Camera3D/Lantern/Model"]
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_lamp_base")
+
+[node name="Glass" type="MeshInstance3D" parent="Head/Camera3D/Lantern/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_lamp_glass")
+
+[node name="Cap" type="MeshInstance3D" parent="Head/Camera3D/Lantern/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_lamp_cap")
+
+[node name="Handle" type="MeshInstance3D" parent="Head/Camera3D/Lantern/Model"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.165, 0)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_lamp_handle")
 
 [node name="Breath" type="GPUParticles3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, -0.35)

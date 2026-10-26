@@ -40,11 +40,11 @@ func _process(_delta: float) -> void:
 		_stat_line("Fome", SurvivalStats.Stat.HUNGER),
 		_stat_line("Luz", SurvivalStats.Stat.LIGHT),
 		_stat_line("Corrupção", SurvivalStats.Stat.CORRUPTION),
-		"Abrigo %s  Calor ambiente %+.2f/s  Esforço %s  Lanterna %s" % [
+		"Abrigo %s  Calor ambiente %+.2f/s  Esforço %s  Lampião %s" % [
 			"sim" if SurvivalStats.is_sheltered else "não",
 			SurvivalStats.environment_heat,
 			"sim" if SurvivalStats.is_exerting else "não",
-			"ligada" if SurvivalStats.lantern_on else "desligada",
+			"aceso" if SurvivalStats.lantern_on else "apagado",
 		],
 		"Velocidade x%.2f" % SurvivalStats.get_speed_multiplier(),
 		"[F4] nevasca  [F6] +1 h  [F7] -%d calor  [F8] -%d fome" % [int(DRAIN_AMOUNT), int(DRAIN_AMOUNT)],

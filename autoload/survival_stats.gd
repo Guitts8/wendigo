@@ -50,7 +50,7 @@ const MAX_VALUE: float = 100.0
 @export_range(0.1, 1.0) var starving_speed_multiplier: float = 0.85
 
 @export_group("Luz")
-## Gasto por segundo com a lanterna acesa (0.28 ≈ 6 min).
+## Gasto por segundo com o lampião aceso (0.28 ≈ 6 min).
 @export var lantern_light_loss: float = 0.28
 @export var light_stage_thresholds: PackedFloat32Array = PackedFloat32Array([50.0, 15.0, 0.001])
 

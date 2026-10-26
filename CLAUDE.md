@@ -43,7 +43,7 @@ Sobrevivência e horror em 3D, primeira pessoa, PC, em **Godot 4 com GDScript**.
 4. Um mapa só (~1 km²), cada vez mais conhecido e mais assustador.
 
 ### Mecânicas
-- **Recursos:** Calor, Fome, Luz (+ Corrupção). Calor cai ao ar livre, à noite e na nevasca; Fome cai com o tempo; Luz é combustível de tocha/lanterna. Zerar Calor ou Fome mata. Sem Luz, o wendigo enxerga e você não.
+- **Recursos:** Calor, Fome, Luz (+ Corrupção). Calor cai ao ar livre, à noite e na nevasca; Fome cai com o tempo; Luz é combustível do lampião (querosene, gordura animal). Zerar Calor ou Fome mata. Sem Luz, o wendigo enxerga e você não.
 - **Comida:** enlatados (pouco, sem corrupção), peixe/coelho (médio), carne crua (médio, corrupção leve), carne humana (muito alto, corrupção alta, calor e visão noturna temporários).
 - **Corrupção em 4 estágios:** leve → média → alta → total (vira wendigo). Ver GDD.
 - **Ações:** coletar, fogueira, caçar, pescar, cozinhar, craft simples (tocha, armadilha, curativo, roupa de pele), esconder-se. Inventário limitado por peso.

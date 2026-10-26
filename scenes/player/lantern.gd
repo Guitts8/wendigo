@@ -1,26 +1,32 @@
 class_name Lantern
 extends Node3D
-## Lanterna do jogador. Gasta Luz enquanto acesa, apaga sozinha quando a Luz
-## acaba e começa a falhar perto do fim.
+## Lampião do jogador. Ilumina em volta (não numa direção só), gasta Luz
+## enquanto aceso, apaga sozinho quando o combustível acaba e falha perto do fim.
+## Aceso, aparece na mão; apagado, fica guardado.
 
 @export var player: Player
-## Abaixo desta Luz a lanterna começa a falhar.
+## Abaixo desta Luz a chama começa a falhar.
 @export var low_light_threshold: float = 15.0
-@export var spot_energy: float = 3.0
-@export var glow_energy: float = 0.4
+@export var light_energy: float = 1.6
+@export var glass_emission_energy: float = 2.0
+## Oscilação normal da chama (0 = luz parada).
+@export var flame_flicker: float = 0.08
 
 var is_on: bool = false
 
 var _noise: FastNoiseLite = FastNoiseLite.new()
 var _time: float = 0.0
+var _glass_material: StandardMaterial3D
 
-@onready var _spot: SpotLight3D = $Spot
-@onready var _glow: OmniLight3D = $Glow
+@onready var _light: OmniLight3D = $Light
+@onready var _model: Node3D = $Model
+@onready var _glass: MeshInstance3D = $Model/Glass
 
 
 func _ready() -> void:
 	_noise.seed = randi()
 	_noise.frequency = 1.0
+	_glass_material = _glass.mesh.surface_get_material(0) as StandardMaterial3D
 	_apply_visibility()
 	SurvivalStats.light_depleted.connect(_on_light_depleted)
 
@@ -39,14 +45,15 @@ func _process(delta: float) -> void:
 	if not is_on:
 		return
 	_time += delta
-	var strength: float = 1.0
+	var strength: float = 1.0 + _noise.get_noise_1d(_time * 8.0) * flame_flicker
 	var light: float = SurvivalStats.get_value(SurvivalStats.Stat.LIGHT)
 	if light < low_light_threshold:
-		# Falhas bruscas, mais fortes quanto mais perto do fim.
-		var flicker: float = _noise.get_noise_1d(_time * 12.0) * 0.5 + 0.5
-		strength = lerpf(1.0, flicker, 1.0 - light / low_light_threshold)
-	_spot.light_energy = spot_energy * strength
-	_glow.light_energy = glow_energy * strength
+		# A chama engasga, mais forte quanto mais perto do fim.
+		var sputter: float = _noise.get_noise_1d(_time * 12.0 + 100.0) * 0.5 + 0.5
+		strength *= lerpf(1.0, sputter, 1.0 - light / low_light_threshold)
+	_light.light_energy = light_energy * strength
+	if _glass_material:
+		_glass_material.emission_energy_multiplier = glass_emission_energy * strength
 
 
 func set_on(value: bool) -> void:
@@ -59,8 +66,8 @@ func set_on(value: bool) -> void:
 
 
 func _apply_visibility() -> void:
-	_spot.visible = is_on
-	_glow.visible = is_on
+	_light.visible = is_on
+	_model.visible = is_on
 
 
 func _on_light_depleted() -> void:

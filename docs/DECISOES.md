@@ -31,3 +31,7 @@ Formato:
 ## 2026-10-26 — Pulo adiado
 **Decisão:** sem pulo por enquanto; `jump_velocity = 0` no Player e sem ação "jump". Decidir depois entre sem pulo (transpor por contexto), pulo livre ou pulo baixo com custo.
 **Motivo:** o autor quer decidir mais tarde; o código aceita qualquer resposta.
+
+## 2026-10-26 — Lampião em vez de lanterna
+**Decisão:** a fonte de luz portátil é um lampião (luz em volta, chama que oscila), reabastecido com querosene; gordura animal entra como combustível quando houver caça. Sem pilhas por enquanto.
+**Motivo:** combina com a cabana de caça e com o GDD ("Luz recupera com lenha, gordura animal"). Também muda o jogo: ilumina perto e em volta, e deixa o jogador visível de longe, o que alimenta a tensão com o wendigo.
